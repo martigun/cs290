@@ -29,7 +29,7 @@ app.post('/', function(req,res){
 	//message console
 	console.log("I received a POST request.");
 	
-	res.send("This was a POST.");
+	res.send("This was a POST. Data was posted.");
 
 	
 	
