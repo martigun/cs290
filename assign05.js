@@ -7,6 +7,14 @@ var app = express();
 var bodyParser = require('body-parser'); 
 app.use(bodyParser.json())
 
+//call and build handlebars
+var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+
+//set handlebars engine
+app.engine('handlebars', handlebars.engine);
+app.set('view engine','handlebars');
+
+
 //http://stackoverflow.com/questions/24543847/req-body-empty-on-posts
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -16,9 +24,10 @@ app.get('/', function(req,res){
 	//message console
 	console.log("I received a GET request.");
 	
-	//res.writeHead(200, { "Content-Type": "text/plain" });
-	//res.end("hello! It's me.");
-	res.send("This was a GET.");
+	//res.type("text/plain");
+	//res.send("This was a GET.");
+	
+	res.render('get.handlebars');
 	
 });
 
@@ -29,7 +38,10 @@ app.post('/', function(req,res){
 	//message console
 	console.log("I received a POST request.");
 	
-	res.send("This was a POST. Data was posted.");
+	//res.type("text/plain");
+	//res.send("This was a POST. Data was posted.");
+	
+	res.render('post.handlebars');
 
 	
 	
@@ -37,9 +49,13 @@ app.post('/', function(req,res){
 
 //catch not found
 app.use(function(req,res){
-  res.type('text/plain');
+  
   res.status(404);
-  res.send('404 - Not Found');
+  
+  //res.type('text/plain');
+  //res.send('404 - Not Found');
+  
+  res.render('post.handlebars');
 });
 
 
